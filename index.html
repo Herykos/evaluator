@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Creative Cultural Hub Socio-cultural Impact Evaluator</title>
+<title>Assessment</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -121,8 +121,8 @@
 </head>
 <body>
 <header class="page-header">
-  <h1>Creative Cultural Hub Socio-cultural Impact Evaluator</h1>
-  <span class="tagline">Socio-cultural Impact Assessment Wheel.</span>
+  <h1>Assessment</h1>
+  <span class="tagline">Assessment Wheel.</span>
 </header>
 <div class="page">
   <div class="top-layout">
@@ -161,152 +161,152 @@
 
 <script>
 const categories = [
-  { name: "Community and Place", color: "#2db560", kpis: [
-    { name: "Local Embeddedness", desc: "How rooted the hub is in its neighbourhood through ongoing relationships with residents, local organisations, schools, or grassroots groups.", question: "How rooted is the hub in its local area through active and ongoing relationships?", options: [
-      { label: "Not yet rooted", hint: "No consistent local relationships are currently visible.", score: 0 },
-      { label: "Occasional local contact", hint: "There are a few local links, but they are irregular.", score: 2.5 },
-      { label: "Some recurring links", hint: "The hub has several repeating local relationships.", score: 5 },
-      { label: "Strong local presence", hint: "The hub works regularly with local groups and stakeholders.", score: 7.5 },
-      { label: "Local anchor", hint: "The hub is widely recognised as an important neighbourhood partner.", score: 10 }
+  { name: "Category 1", color: "#2db560", kpis: [
+    { name: " KPI 1", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Accessibility and Inclusion", desc: "How accessible the hub is in terms of cost, welcome, safety, and openness to different backgrounds, art forms, and users.", question: "How accessible and inclusive is the hub for different kinds of users?", options: [
-      { label: "Narrow access", hint: "Access is limited or there are clear barriers for many users.", score: 0 },
-      { label: "Some access", hint: "Some people can access the space, but barriers remain visible.", score: 2.5 },
-      { label: "Moderately inclusive", hint: "Access is decent overall, though not consistent for everyone.", score: 5 },
-      { label: "Actively inclusive", hint: "The hub makes visible efforts to welcome different users.", score: 7.5 },
-      { label: "Embedded inclusion", hint: "Inclusion and accessibility are clearly built into daily practice.", score: 10 }
+    { name: " KPI 2", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Community Participation", desc: "The degree to which local people, residents, and users participate actively in the life of the hub beyond one-off attendance.", question: "How actively do people participate in the life of the hub beyond simply showing up once?", options: [
-      { label: "Mostly passive", hint: "Participation is mostly limited to attendance or one-off use.", score: 0 },
-      { label: "Small active core", hint: "A small group participates repeatedly, but engagement is narrow.", score: 2.5 },
-      { label: "Regular participation", hint: "Participation happens regularly in some activities or groups.", score: 5 },
-      { label: "Broad active use", hint: "Many users participate repeatedly across activities.", score: 7.5 },
-      { label: "Self-sustaining community", hint: "Participation is broad, active, and partly driven by the community itself.", score: 10 }
+    { name: " KPI 3", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Belonging and Cohesion", desc: "Whether the hub creates a sense of belonging, mutual support, and connection among users and residents.", question: "How strongly does the hub create belonging and social cohesion among its users?", options: [
-      { label: "Little shared community", hint: "There is little visible sense of connection between users.", score: 0 },
-      { label: "Some connection", hint: "Users know each other somewhat, but ties are limited.", score: 2.5 },
-      { label: "Moderate community", hint: "A visible sense of community exists, though unevenly.", score: 5 },
-      { label: "Strong cohesion", hint: "Peer support and belonging are clearly present.", score: 7.5 },
-      { label: "Community of practice", hint: "The hub clearly functions as a cohesive and supportive community.", score: 10 }
+    { name: " KPI 4", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Identity and Place Value", desc: "The extent to which the hub contributes to local identity, civic meaning, and the cultural image of the area.", question: "How much does the hub contribute to the cultural identity and meaning of its area or city?", options: [
-      { label: "Little place value", hint: "The hub has little visible influence on local identity.", score: 0 },
-      { label: "Limited recognition", hint: "Some people value it, but its local cultural role is still limited.", score: 2.5 },
-      { label: "Recognised by some", hint: "The hub has a visible place in local cultural identity for certain groups.", score: 5 },
-      { label: "Clear local value", hint: "The hub clearly contributes to how the area is culturally understood.", score: 7.5 },
-      { label: "Strong symbolic role", hint: "The hub strongly shapes local cultural identity and place value.", score: 10 }
+    { name: " KPI 5", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 }
   ]},
-  { name: "Artistic Development", color: "#e8b800", kpis: [
-    { name: "Experimentation and Risk", desc: "The degree to which the hub makes room for artistic experimentation, testing, informal presentation, and non-commercial work.", question: "How much room does the hub give to experimentation and artistic risk-taking?", options: [
-      { label: "Very little room", hint: "There is hardly any space for experimentation or risky work.", score: 0 },
-      { label: "Occasional experimentation", hint: "Experimentation happens occasionally but is not central.", score: 2.5 },
-      { label: "Some experimentation", hint: "There is visible room for experimentation in parts of the hub.", score: 5 },
-      { label: "Clear priority", hint: "Experimentation is an important and supported part of the hub.", score: 7.5 },
-      { label: "Core function", hint: "The hub clearly acts as a safe space for risk-taking and artistic testing.", score: 10 }
+  { name: "Category 2", color: "#e8b800", kpis: [
+    { name: " KPI 1", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Talent Development", desc: "How well the hub supports people at different artistic or professional stages through practice, feedback, exposure, or progression.", question: "How well does the hub support the development of emerging and growing practitioners?", options: [
-      { label: "Little support", hint: "There is little visible development support for practitioners.", score: 0 },
-      { label: "Ad hoc support", hint: "Support exists occasionally but is not structured or recurring.", score: 2.5 },
-      { label: "Some recurring support", hint: "There are some regular ways people can develop here.", score: 5 },
-      { label: "Clear development pathways", hint: "The hub offers visible support across stages of development.", score: 7.5 },
-      { label: "Strong development ecology", hint: "The hub is a major platform for artistic and professional growth.", score: 10 }
+    { name: " KPI 2", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Workspace and Production", desc: "How effectively the hub provides the material conditions artists need, such as rehearsal space, studios, equipment, or time to develop work.", question: "How well does the hub provide the practical space and production conditions needed to make work?", options: [
-      { label: "Poor fit", hint: "Facilities are limited or poorly matched to users' needs.", score: 0 },
-      { label: "Basic support", hint: "Some useful support exists, but it remains limited.", score: 2.5 },
-      { label: "Generally useful", hint: "The hub meets many core workspace and production needs.", score: 5 },
-      { label: "Strong production support", hint: "Facilities strongly support making, rehearsing, or producing work.", score: 7.5 },
-      { label: "Critical infrastructure", hint: "The hub provides highly valuable conditions without which work would be much harder to make.", score: 10 }
+    { name: " KPI 3", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Presentation Pathways", desc: "Whether the hub helps artistic work move from creation into presentation, sharing, performance, or audience encounter.", question: "How well does the hub help work move from making into presentation or public sharing?", options: [
-      { label: "Few pathways", hint: "There are very few ways for work to be shown or shared.", score: 0 },
-      { label: "Occasional opportunities", hint: "Some presentation opportunities exist, but irregularly.", score: 2.5 },
-      { label: "Some regular routes", hint: "The hub offers repeated opportunities to share or show work.", score: 5 },
-      { label: "Clear pathways", hint: "There are visible routes from creation to presentation.", score: 7.5 },
-      { label: "Strong circulation support", hint: "The hub strongly helps work circulate, be seen, and develop audiences.", score: 10 }
+    { name: " KPI 4", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Cross-Disciplinary Exchange", desc: "How much the hub encourages interaction, learning, and collaboration across different practices or art forms.", question: "How much does the hub encourage exchange across disciplines, practices, or kinds of makers?", options: [
-      { label: "Mostly separate", hint: "Disciplines mostly stay separate from each other.", score: 0 },
-      { label: "Incidental exchange", hint: "Exchange happens now and then, but not often.", score: 2.5 },
-      { label: "Some regular exchange", hint: "Cross-disciplinary interaction is visible in parts of the hub.", score: 5 },
-      { label: "Common practice", hint: "Exchange between practices is a normal part of how the hub works.", score: 7.5 },
-      { label: "Strong cross-pollination", hint: "The hub clearly depends on and thrives through cross-disciplinary exchange.", score: 10 }
+    { name: " KPI 5", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 }
   ]},
-  { name: "Ecosystem and Exchange", color: "#f07c18", kpis: [
-    { name: "Scene Connectivity", desc: "How connected the hub is to the wider cultural scene, including venues, organisations, festivals, schools, or other actors in the city and region.", question: "How connected is the hub to the wider cultural scene around it?", options: [
-      { label: "Mostly isolated", hint: "The hub has very limited connection to the wider scene.", score: 0 },
-      { label: "A few outside links", hint: "There are some external connections, but they are limited.", score: 2.5 },
-      { label: "Moderately connected", hint: "The hub is connected to several relevant outside actors.", score: 5 },
-      { label: "Well connected", hint: "The hub has strong active ties across the local or regional scene.", score: 7.5 },
-      { label: "Deeply embedded", hint: "The hub is a recognised and active node within the broader scene.", score: 10 }
+  { name: "Category 3", color: "#f07c18", kpis: [
+    { name: " KPI 1", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Partnerships and Collaboration", desc: "The extent to which the hub works with external partners such as cultural institutions, schools, neighbourhood groups, or public bodies.", question: "How actively does the hub collaborate with outside partners?", options: [
-      { label: "Very few partnerships", hint: "The hub has little active collaboration with outside organisations.", score: 0 },
-      { label: "Occasional collaboration", hint: "Some partnerships exist, but mostly on an ad hoc basis.", score: 2.5 },
-      { label: "Several recurring partnerships", hint: "The hub has a number of useful ongoing collaborations.", score: 5 },
-      { label: "Strong active partnerships", hint: "Partnerships are regular and clearly support the hub's work.", score: 7.5 },
-      { label: "Strategic collaboration", hint: "External collaboration is diverse, active, and central to how the hub operates.", score: 10 }
+    { name: " KPI 2", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Knowledge Exchange", desc: "How much the hub functions as a place where skills, advice, experience, and contacts are exchanged.", question: "How much does the hub function as a place for sharing knowledge, skills, and contacts?", options: [
-      { label: "Little exchange", hint: "Very little knowledge-sharing is visible.", score: 0 },
-      { label: "Limited informal sharing", hint: "Some sharing happens, but only among a few people.", score: 2.5 },
-      { label: "Some regular exchange", hint: "Knowledge-sharing is visible and recurring in some ways.", score: 5 },
-      { label: "Strong peer learning", hint: "The hub clearly supports regular learning and exchange.", score: 7.5 },
-      { label: "Knowledge hub", hint: "The hub strongly functions as a shared learning and exchange environment.", score: 10 }
+    { name: " KPI 3", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Ecological Contribution", desc: "The degree to which the hub supports the wider cultural ecology rather than only serving its internal users.", question: "How much does the hub strengthen the wider creative ecosystem beyond its own internal community?", options: [
-      { label: "Mostly inward-looking", hint: "The hub mainly serves its own internal users.", score: 0 },
-      { label: "Limited wider value", hint: "There is some contribution beyond the hub, but it is modest.", score: 2.5 },
-      { label: "Some wider contribution", hint: "The hub provides visible value to the broader ecosystem.", score: 5 },
-      { label: "Clear enabling role", hint: "The hub clearly helps other actors, scenes, or pathways flourish.", score: 7.5 },
-      { label: "Key ecosystem infrastructure", hint: "The hub is an important enabling structure for the wider creative ecology.", score: 10 }
+    { name: " KPI 4", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Progression Pathways", desc: "Whether the hub helps artists or makers move toward next steps such as commissions, larger venues, festivals, residencies, or professional opportunities.", question: "How well does the hub help its users move toward meaningful next steps or opportunities?", options: [
-      { label: "Little visible progression", hint: "Few users seem to move onward through the hub.", score: 0 },
-      { label: "Occasional progression", hint: "There are some examples of onward progression, but not many.", score: 2.5 },
-      { label: "Some repeated pathways", hint: "The hub offers some recurring routes into next opportunities.", score: 5 },
-      { label: "Clear progression support", hint: "There are visible and regular pathways toward further opportunities.", score: 7.5 },
-      { label: "Recognised stepping stone", hint: "The hub is clearly known as a strong progression platform within the local ecology.", score: 10 }
+    { name: " KPI 5", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 }
   ]},
-  { name: "Organisational Resilience", color: "#d8293a", kpis: [
-    { name: "Affordability and Security", desc: "How stable and affordable the hub's spaces are for the artists, makers, and users who depend on them.", question: "How stable and affordable are the spaces the hub provides for its users?", options: [
-      { label: "Very fragile", hint: "Space is insecure or unaffordable for many users.", score: 0 },
-      { label: "Some stability", hint: "There is some continuity, but it feels fragile or uneven.", score: 2.5 },
-      { label: "Moderately stable", hint: "Affordability and continuity are workable but not guaranteed.", score: 5 },
-      { label: "Fairly secure", hint: "The hub provides fairly stable and affordable conditions.", score: 7.5 },
-      { label: "Major strength", hint: "Affordability and continuity are among the hub's strongest qualities.", score: 10 }
+  { name: "Category 4", color: "#d8293a", kpis: [
+    { name: " KPI 1", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Governance and Responsiveness", desc: "How well management stays in touch with users and adapts the hub through feedback, dialogue, and visible response.", question: "How responsive is the hub's management to users, feedback, and changing needs?", options: [
-      { label: "Weak communication", hint: "Management feels distant or mostly reactive.", score: 0 },
-      { label: "Some listening", hint: "Some feedback is heard, but response is inconsistent.", score: 2.5 },
-      { label: "Moderately responsive", hint: "Management responds to some needs in visible ways.", score: 5 },
-      { label: "Regularly responsive", hint: "Feedback is taken seriously and often acted on.", score: 7.5 },
-      { label: "Trusted and adaptive", hint: "Governance is clearly relational, responsive, and adaptive.", score: 10 }
+    { name: " KPI 2", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Operational Stability", desc: "How secure the hub's overall operating model is in terms of staffing, funding mix, and day-to-day continuity.", question: "How stable does the hub's overall operating model appear?", options: [
-      { label: "Highly unstable", hint: "Operations feel very fragile or uncertain.", score: 0 },
-      { label: "Somewhat unstable", hint: "The model works, but with visible instability or risk.", score: 2.5 },
-      { label: "Workable but vulnerable", hint: "The hub functions, though some vulnerabilities remain.", score: 5 },
-      { label: "Fairly stable", hint: "The hub appears reasonably secure operationally.", score: 7.5 },
-      { label: "Strong stability", hint: "The hub has a strong and well-balanced operating model.", score: 10 }
+    { name: " KPI 3", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Learning and Impact Awareness", desc: "How clearly the hub reflects on, discusses, and monitors the value it creates, formally or informally.", question: "How clearly does the hub understand and reflect on the impact it creates?", options: [
-      { label: "Little awareness", hint: "There is little reflection or tracking of impact.", score: 0 },
-      { label: "Limited reflection", hint: "Some impact awareness exists, but it is weak or irregular.", score: 2.5 },
-      { label: "Some regular reflection", hint: "The hub reflects on its value in recurring ways.", score: 5 },
-      { label: "Clear learning culture", hint: "The hub clearly discusses and reviews its impact.", score: 7.5 },
-      { label: "Strong evidence mindset", hint: "Learning, reflection, and impact awareness are deeply embedded.", score: 10 }
+    { name: " KPI 4", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 },
-    { name: "Adaptability", desc: "How well the hub can respond to outside pressures such as regulation, policy change, neighbourhood pressure, or funding shifts.", question: "How well can the hub adapt to external pressures and changing conditions?", options: [
-      { label: "Struggles to adapt", hint: "The hub finds it very difficult to respond to change.", score: 0 },
-      { label: "Limited adaptability", hint: "The hub reacts when needed, but with difficulty.", score: 2.5 },
-      { label: "Moderate adaptability", hint: "The hub can adapt, though not always smoothly.", score: 5 },
-      { label: "Generally adaptive", hint: "The hub usually responds well to changing conditions.", score: 7.5 },
-      { label: "Highly flexible", hint: "The hub is strategically adaptive and responds confidently to change.", score: 10 }
+    { name: " KPI 5", desc: "description", question: "Question", options: [
+      { label: "Option 1", hint: "Option 1", score: 0 },
+      { label: "Option 2", hint: "Option 2", score: 2.5 },
+      { label: "Option 3", hint: "Option 3", score: 5 },
+      { label: "Option 4", hint: "Option 4", score: 7.5 },
+      { label: "Option 5", hint: "Option 5", score: 10 }
     ], score: 0 }
   ]}
 ];
