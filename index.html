@@ -106,7 +106,17 @@
   .slider-row { display: flex; align-items: center; gap: 6px; }
   .slider-row input[type=range] { flex: 1; accent-color: var(--cc, #e8420a); height: 3px; min-width: 0; }
   .vbadge { min-width: 26px; text-align: right; color: #1a1208; font-size: 0.66rem; font-weight: 800; }
-  @media (max-width: 1000px) { .top-layout { grid-template-columns: 1fr; } }
+  @media (max-width: 1000px) {
+    .top-layout { grid-template-columns: 1fr; }
+    .page { padding: 8px 8px 12px; }
+  }
+  @media (max-width: 600px) {
+    .page-header { padding: 9px 12px 8px; gap: 8px; }
+    .page-header h1 { font-size: 0.95rem; }
+    .page { padding: 6px 6px 10px; }
+    .questionnaire { padding: 10px; }
+    .finetuning-section { padding: 10px; }
+  }
 </style>
 </head>
 <body>
@@ -305,31 +315,59 @@ const MAX_SCORE = 10;
 // ── Canvas geometry ──────────────────────────────────────────────────────────
 // LABEL_SIDE: horizontal space per side for side labels
 // LABEL_TOP:  vertical space above arc peak for top labels
-// The canvas is wider than the wheel to accommodate labels on all sides.
-const WHEEL_R    = 390;
-const LABEL_SIDE = 180;   // left/right label room
-const LABEL_TOP  = 80;    // top label room (labels stacked horizontally above arc)
-const CY_FOOT    = 28;
-const W   = (WHEEL_R + LABEL_SIDE) * 2;   // 1140
-const H   = WHEEL_R + LABEL_TOP + CY_FOOT; // 498
-const CX  = W / 2;
-const CY  = H - CY_FOOT;   // wheel centre Y
-
-const INNER_R = 56;
-const METER_R = 104;
-const MID_R   = 184;
-const OUTER_R = WHEEL_R - 2;
-const GAP     = 0.020;
-const BADGE_R = INNER_R - 4;  // canvas-drawn badge radius
+// ── Responsive dimensions (recomputed on resize) ──────────────────────────────
+const BASE_WHEEL_R = 390;
+let WHEEL_R, LABEL_SIDE, LABEL_TOP, CY_FOOT, W, H, CX, CY;
+let INNER_R, METER_R, MID_R, OUTER_R, BADGE_R;
+const GAP = 0.020;
 
 const canvas = document.getElementById('wheel');
+const wheelWrap = document.getElementById('wheel-wrap');
 const DPR = Math.min(window.devicePixelRatio || 1, 2);
+let ctx = canvas.getContext('2d');
+
+function computeDimensions() {
+  const availW = wheelWrap.clientWidth || BASE_WHEEL_R * 2 + 180 * 2;
+  // Scale WHEEL_R to fit within available width (label rooms are proportional)
+  // W = (WHEEL_R + LABEL_SIDE) * 2  where LABEL_SIDE = WHEEL_R * (180/390)
+  // So W = WHEEL_R * 2 * (1 + 180/390) = WHEEL_R * 2 * (570/390)
+  const scaleFactor = 570 / 390;
+  WHEEL_R    = Math.min(BASE_WHEEL_R, Math.floor(availW / (2 * scaleFactor)));
+  LABEL_SIDE = Math.round(WHEEL_R * (180 / 390));
+  LABEL_TOP  = Math.round(WHEEL_R * (80  / 390));
+  CY_FOOT    = Math.round(WHEEL_R * (28  / 390));
+  W   = (WHEEL_R + LABEL_SIDE) * 2;
+  H   = WHEEL_R + LABEL_TOP + CY_FOOT;
+  CX  = W / 2;
+  CY  = H - CY_FOOT;
+  INNER_R = Math.round(WHEEL_R * (56  / 390));
+  METER_R = Math.round(WHEEL_R * (104 / 390));
+  MID_R   = Math.round(WHEEL_R * (184 / 390));
+  OUTER_R = WHEEL_R - 2;
+  BADGE_R = INNER_R - 4;
+}
+
+function resizeCanvas() {
+  computeDimensions();
+  canvas.width  = Math.round(W * DPR);
+  canvas.height = Math.round(H * DPR);
+  canvas.style.width  = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx = canvas.getContext('2d');
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(DPR, DPR);
+  drawWheel();
+}
+
+computeDimensions();
 canvas.width  = Math.round(W * DPR);
 canvas.height = Math.round(H * DPR);
 canvas.style.width  = W + 'px';
 canvas.style.height = H + 'px';
-const ctx = canvas.getContext('2d');
+ctx.setTransform(1, 0, 0, 1, 0, 0);
 ctx.scale(DPR, DPR);
+
+function fs(px) { return Math.round(px * WHEEL_R / BASE_WHEEL_R); }
 
 // ── Animation ────────────────────────────────────────────────────────────────
 let animV = {}, animT = {};
@@ -412,17 +450,17 @@ function drawBadge(pct) {
   // Dark disc already drawn by main wheel; just draw the text and gold ring
   ctx.save();
   ctx.beginPath(); ctx.arc(CX,CY,BADGE_R,0,Math.PI*2);
-  ctx.strokeStyle='#f7b731'; ctx.lineWidth=2.2; ctx.stroke();
+  ctx.strokeStyle='#f7b731'; ctx.lineWidth=Math.max(1.2, WHEEL_R/177); ctx.stroke();
   // Percentage
-  ctx.font = 'bold 18px "Playfair Display", Georgia, serif';
+  ctx.font = 'bold '+fs(18)+'px "Playfair Display", Georgia, serif';
   ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.fillStyle='#f7b731';
-  ctx.fillText(pct+'%', CX, CY-7);
+  ctx.fillText(pct+'%', CX, CY-fs(7));
   // Label
-  ctx.font = '700 8px "DM Sans", Helvetica, sans-serif';
+  ctx.font = '700 '+fs(8)+'px "DM Sans", Helvetica, sans-serif';
   ctx.fillStyle='#bfb89e';
-  ctx.fillText('OVERALL', CX, CY+6);
-  ctx.fillText('SCORE',   CX, CY+16);
+  ctx.fillText('OVERALL', CX, CY+fs(6));
+  ctx.fillText('SCORE',   CX, CY+fs(16));
   ctx.restore();
 }
 
@@ -431,9 +469,9 @@ function drawCatLabel(text, angle) {
   const r=(MID_R+METER_R)/2;
   const x=CX+Math.cos(angle)*r, y=CY+Math.sin(angle)*r;
   ctx.save();
-  ctx.font='700 11px "DM Sans",Helvetica,sans-serif';
+  ctx.font='700 '+fs(11)+'px "DM Sans",Helvetica,sans-serif';
   ctx.textAlign='center'; ctx.textBaseline='middle';
-  const words=text.split(' '), maxLW=90, lines=[];
+  const words=text.split(' '), maxLW=fs(90), lines=[];
   let line='';
   for (const w of words) {
     const t=line?line+' '+w:w;
@@ -441,7 +479,7 @@ function drawCatLabel(text, angle) {
     else { if(line) lines.push(line); line=w; }
   }
   if (line) lines.push(line);
-  const lineH=13, totalH=lines.length*lineH;
+  const lineH=fs(13), totalH=lines.length*lineH;
   ctx.fillStyle='#1a1208';
   lines.forEach((l,i) => ctx.fillText(l, x, y-totalH/2+lineH*i+lineH/2));
   ctx.restore();
@@ -475,7 +513,7 @@ function collectLabels() {
       // Radial distance from centre to label anchor
       const topAngle=1.5*Math.PI;
       const distTop=Math.abs(km-topAngle);
-      const extraR = distTop < 0.55 ? 44 + (0.55-distTop)*30 : 28; // push top ones further out
+      const extraR = distTop < 0.55 ? fs(44) + (0.55-distTop)*fs(30) : fs(28); // push top ones further out
       const anchorR = OUTER_R + extraR;
       const ax=CX+cos*anchorR, ay=CY+sin*anchorR;
       const isRight=km>topAngle;
@@ -489,7 +527,7 @@ function collectLabels() {
 
 function resolveOverlaps(labels) {
   // Sort by Y (top to bottom), then push overlapping labels apart
-  const lineH = 18; // min vertical separation between labels
+  const lineH = fs(18); // min vertical separation between labels
   // Separate left and right halves independently
   ['left','right'].forEach(side => {
     const half = labels.filter(l => side==='left' ? l.km<1.5*Math.PI : l.km>=1.5*Math.PI);
@@ -508,20 +546,20 @@ function drawLabel(l) {
   const { text, ax, ay, isRight, catColor, fillRatio } = l;
   // Leader line: from outer ring edge toward anchor
   const cos=l.cos, sin=l.sin;
-  const lx1=CX+cos*(OUTER_R+6), ly1=CY+sin*(OUTER_R+6);
-  const lx2=ax - (isRight?8:-8), ly2=ay;
+  const lx1=CX+cos*(OUTER_R+fs(6)), ly1=CY+sin*(OUTER_R+fs(6));
+  const lx2=ax - (isRight?fs(8):-fs(8)), ly2=ay;
   ctx.save();
   ctx.beginPath(); ctx.moveTo(lx1,ly1); ctx.lineTo(lx2,ly2);
   ctx.strokeStyle=fillRatio>0.08?catColor:'#9a9080'; ctx.lineWidth=1.1; ctx.stroke();
 
   // Text
-  ctx.font='600 10.5px "DM Sans",Helvetica,sans-serif';
+  ctx.font='600 '+fs(11)+'px "DM Sans",Helvetica,sans-serif';
   ctx.textBaseline='middle'; ctx.textAlign=isRight?'left':'right';
   const tw=ctx.measureText(text).width;
   const bx=isRight?ax-2:ax-tw-2;
   // Solid bg
   ctx.fillStyle='#f5f0e8';
-  ctx.fillRect(bx, ay-8, tw+4, 16);
+  ctx.fillRect(bx, ay-fs(8), tw+4, fs(16));
   ctx.fillStyle='#1a1208';
   ctx.fillText(text, ax, ay);
   ctx.restore();
@@ -587,7 +625,7 @@ function drawWheel() {
   const mPct=Math.round(meterCurrent*100);
   if (mPct>1) {
     ctx.save();
-    ctx.font='700 10px "DM Sans",Helvetica,sans-serif';
+    ctx.font='700 '+fs(10)+'px "DM Sans",Helvetica,sans-serif';
     ctx.textAlign='center'; ctx.textBaseline='middle';
     ctx.fillStyle='rgba(255,210,210,0.92)';
     ctx.fillText(mPct+'%', CX, CY-(INNER_R+METER_R)/2);
@@ -700,7 +738,23 @@ if (!ts) {
   const s=document.createElement('span'); s.id='total-score'; s.style.display='none'; document.body.appendChild(s);
 }
 
-buildPanel(); initAnim(); drawWheel(); renderQuestion();
+// ── Responsive resize ────────────────────────────────────────────────────────
+let resizeRaf = null;
+function queueResize() {
+  if (resizeRaf) cancelAnimationFrame(resizeRaf);
+  resizeRaf = requestAnimationFrame(function() {
+    resizeCanvas();
+    resizeRaf = null;
+  });
+}
+if (window.ResizeObserver) {
+  const ro = new ResizeObserver(queueResize);
+  ro.observe(wheelWrap);
+}
+window.addEventListener('resize', queueResize);
+window.addEventListener('orientationchange', queueResize);
+
+buildPanel(); initAnim(); resizeCanvas(); renderQuestion();
 raf=requestAnimationFrame(animLoop);
 </script>
 <!-- Hidden span for total-score text (badge text drawn on canvas) -->
