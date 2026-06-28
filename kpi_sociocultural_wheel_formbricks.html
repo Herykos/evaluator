@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sociocultural Impact Wheel</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #651021;
+    --panel: rgba(9, 8, 24, 0.82);
+    --panel-soft: rgba(255,255,255,0.05);
+    --line: rgba(255,255,255,0.08);
+    --text: #f6f7fb;
+    --muted: #c8cad7;
+    --soft: #9fa5be;
+    --accent: #f0c040;
+  }
+  body {
+    font-family: Inter, Segoe UI, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px 16px 18px;
+  }
+  .page {
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.24rem;
+    color: #fff4c2;
+    margin-bottom: 4px;
+    letter-spacing: 0.2px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #ead2d7;
+    margin-bottom: 18px;
+  }
+  .top-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 680px) minmax(300px, 380px);
+    gap: 22px;
+    align-items: end;
+  }
+  #wheel-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+  }
+  canvas { display: block; max-width: 100%; height: auto; }
+  .score-badge {
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    transform: translateX(-50%);
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: rgba(8, 6, 18, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    pointer-events: none;
+  }
+  .score-badge .sv { font-size: 1.3rem; font-weight: 800; color: #ffd76d; }
+  .score-badge .sl { font-size: 0.54rem; color: #d0d3e0; text-align: center; line-height: 1.25; }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.18);
+    backdrop-filter: blur(8px);
+  }
+
+  .questionnaire {
+    padding: 16px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+  }
+  .q-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .q-title { font-size: 0.94rem; font-weight: 700; color: #fff1b3; }
+  .q-count { font-size: 0.72rem; color: var(--muted); }
+  .progress {
+    width: 100%;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ffd76d, #ffb648);
+    transition: width 0.28s ease;
+  }
+  .pill-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 7px 10px;
+    border-radius: 999px;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .q-card {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 14px;
+    min-height: 248px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .q-kpi {
+    font-size: 0.76rem;
+    color: #d7daf0;
+    letter-spacing: 0.1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .q-text {
+    font-size: 1rem;
+    line-height: 1.45;
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .q-help {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: #cfd3e8;
+  }
+  .answers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .answer-btn {
+    width: 100%;
+    text-align: left;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #f4f6fc;
+    border-radius: 12px;
+    padding: 11px 12px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.18s ease, border-color 0.18s ease;
+    font-size: 0.84rem;
+    line-height: 1.35;
+  }
+  .answer-btn:hover {
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-1px);
+  }
+  .answer-btn.selected {
+    background: rgba(255, 215, 109, 0.16);
+    border-color: rgba(255, 215, 109, 0.68);
+    box-shadow: inset 0 0 0 1px rgba(255,215,109,0.25);
+  }
+  .answer-btn strong { color: #fff7d4; }
+  .q-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .nav-btn, .reset-btn {
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: #f4f6fc;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .nav-btn.primary {
+    background: linear-gradient(180deg, #ffd76d, #f0b845);
+    color: #251804;
+    border-color: rgba(255,215,109,0.6);
+  }
+  .nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .backup-panel {
+    margin-top: 18px;
+    padding: 16px;
+  }
+  .backup-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .backup-title { font-size: 0.94rem; font-weight: 700; color: #fff1b3; }
+  .backup-note { font-size: 0.72rem; color: var(--muted); }
+  #kpi-panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    gap: 12px;
+  }
+  .cat-block {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.03);
+  }
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 11px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+  .cat-score {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: #fff;
+    background: rgba(0,0,0,0.25);
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+  .toggle-icon { font-size: 0.62rem; color: #d4d8eb; }
+  .cat-name-edit, .kpi-name-edit {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed rgba(255,255,255,0.22);
+    color: #fff;
+    outline: none;
+    padding: 1px 2px;
+    font: inherit;
+    width: 100%;
+  }
+  .cat-name-edit:focus, .kpi-name-edit:focus { border-bottom-color: #ffd76d; }
+  .kpi-list {
+    display: none;
+    padding: 10px 11px 12px;
+    background: rgba(0,0,0,0.12);
+  }
+  .kpi-list.open { display: block; }
+  .kpi-item { margin-bottom: 10px; }
+  .kpi-desc {
+    font-size: 0.69rem;
+    line-height: 1.38;
+    color: #c8cde2;
+    margin: 5px 0 7px;
+  }
+  .slider-row { display: flex; align-items: center; gap: 8px; }
+  .slider-row input[type=range] { flex: 1; accent-color: var(--cc, #ffd76d); }
+  .vbadge {
+    min-width: 28px;
+    text-align: center;
+    color: #fff;
+    font-size: 0.74rem;
+    font-weight: 800;
+  }
+  .small-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 960px) {
+    .top-layout { grid-template-columns: 1fr; }
+    .questionnaire { min-height: unset; }
+    #kpi-panel { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Sociocultural Impact Evaluation Wheel</h1>
+  <p class="subtitle">Answer the questionnaire to fill the wheel automatically. Use the controls below only as a backup.</p>
+
+  <div class="top-layout">
+    <div id="wheel-wrap">
+      <canvas id="wheel"></canvas>
+      <div class="score-badge">
+        <span class="sv" id="total-score">0%</span>
+        <span class="sl">Overall<br/>Score</span>
+      </div>
+    </div>
+
+    <section class="questionnaire card">
+      <div class="q-head">
+        <div class="q-title">Questionnaire</div>
+        <div class="q-count" id="q-count">Question 1 of 20</div>
+      </div>
+      <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+      <div class="pill-row">
+        <span class="pill" id="cat-pill"><span class="dot" id="cat-dot"></span><span id="cat-pill-text"></span></span>
+      </div>
+      <div class="q-card">
+        <div>
+          <div class="q-kpi" id="q-kpi">Indicator</div>
+          <div class="q-text" id="q-text"></div>
+          <div class="q-help" id="q-help"></div>
+        </div>
+        <div class="answers" id="answers"></div>
+      </div>
+      <div class="q-nav">
+        <button class="nav-btn" id="prev-btn">Previous</button>
+        <button class="nav-btn primary" id="next-btn">Next</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="backup-panel card">
+    <div class="backup-head">
+      <div>
+        <div class="backup-title">Backup controls</div>
+        <div class="backup-note">You can still edit names and adjust scores manually here.</div>
+      </div>
+      <button class="reset-btn" onclick="resetAll()">Reset all scores</button>
+    </div>
+    <div id="kpi-panel"></div>
+  </section>
+</div>
+
+<script>
+const categories = [
+  {
+    name: "Community & Place",
+    color: "#24b45e",
+    kpis: [
+      {
+        name: "Community Cohesion",
+        desc: "Looks at whether the hub builds relationships across local groups and encourages repeated local participation.",
+        question: "This hub regularly brings together different people from the local area in meaningful ways.",
+        score: 0
+      },
+      {
+        name: "Urban Embeddedness",
+        desc: "Looks at how rooted the hub is in its neighbourhood, catchment area, and local partnerships.",
+        question: "This hub feels strongly connected to its surrounding neighbourhood and local organisations.",
+        score: 0
+      },
+      {
+        name: "Inclusion & Safe Spaces",
+        desc: "Looks at accessibility, diversity, affordability, and whether people feel welcome and safe.",
+        question: "People from different backgrounds can access this hub and feel welcome here.",
+        score: 0
+      },
+      {
+        name: "Civic Engagement",
+        desc: "Looks at whether the hub supports civic activity, community dialogue, and shared social purpose.",
+        question: "This hub contributes to community life beyond entertainment alone.",
+        score: 0
+      },
+      {
+        name: "Identity & Local Pride",
+        desc: "Looks at whether the hub contributes to local identity, memory, and pride in place.",
+        question: "This hub is an important part of local identity and gives people pride in the area.",
+        score: 0
+      }
+    ]
+  },
+  {
+    name: "Artistic Value",
+    color: "#e1c220",
+    kpis: [
+      {
+        name: "Artistic Innovation",
+        desc: "Looks at whether the hub supports original work, experimentation, and new artistic formats.",
+        question: "This hub actively supports new ideas, original work, and artistic experimentation.",
+        score: 0
+      },
+      {
+        name: "Risk-Taking",
+        desc: "Looks at whether the hub gives space to less commercial, emerging, or uncertain work.",
+        question: "This hub makes room for risky, emerging, or less commercial cultural work.",
+        score: 0
+      },
+      {
+        name: "Cultural Vibrancy",
+        desc: "Looks at density, diversity, and richness of programming across genres and formats.",
+        question: "The programme here feels active, diverse, and culturally vibrant.",
+        score: 0
+      },
+      {
+        name: "Talent Development",
+        desc: "Looks at whether the hub helps people learn, grow, rehearse, and progress to larger opportunities.",
+        question: "This hub plays an important role in helping emerging talent develop.",
+        score: 0
+      },
+      {
+        name: "Creative Freedom",
+        desc: "Looks at whether artists and makers feel trusted, autonomous, and free to try things that may fail.",
+        question: "Artists and makers here have genuine freedom to experiment and develop their practice.",
+        score: 0
+      }
+    ]
+  },
+  {
+    name: "Ecology & Networks",
+    color: "#ea7b24",
+    kpis: [
+      {
+        name: "Reciprocity",
+        desc: "Looks at peer exchange, mutual support, and collaboration between residents, partners, and users.",
+        question: "People connected to this hub regularly support each other and create meaningful collaborations.",
+        score: 0
+      },
+      {
+        name: "Scene Reputation",
+        desc: "Looks at whether the hub matters within the wider city or regional cultural scene.",
+        question: "This hub has a clear reputation and is recognised within the wider cultural scene.",
+        score: 0
+      },
+      {
+        name: "Ecological Health",
+        desc: "Looks at whether the hub strengthens the wider cultural ecosystem rather than operating in isolation.",
+        question: "This hub makes the wider cultural ecosystem healthier and more connected.",
+        score: 0
+      },
+      {
+        name: "Place Reputation",
+        desc: "Looks at whether the hub improves how the place is seen by residents, visitors, and creative workers.",
+        question: "This hub improves the cultural reputation of the neighbourhood or city.",
+        score: 0
+      },
+      {
+        name: "Knowledge Exchange",
+        desc: "Looks at whether the hub shares skills, advice, learning, and cross-sector ideas.",
+        question: "This hub is a place where useful knowledge, skills, and experience are actively shared.",
+        score: 0
+      }
+    ]
+  },
+  {
+    name: "Organisational Resilience",
+    color: "#d33a33",
+    kpis: [
+      {
+        name: "Sustainable Model",
+        desc: "Looks at whether the hub has stable resources, a workable income mix, and viable operations.",
+        question: "This hub has a sustainable operating model that can support its mission over time.",
+        score: 0
+      },
+      {
+        name: "Tenant Stability",
+        desc: "Looks at whether artists, makers, or users can stay long enough to build continuity and value.",
+        question: "This hub provides enough continuity and stability for people to build lasting value here.",
+        score: 0
+      },
+      {
+        name: "Impact Clarity",
+        desc: "Looks at whether the hub clearly understands what change it wants to create and how it tracks it.",
+        question: "This hub has a clear understanding of the impact it wants to create and can explain it well.",
+        score: 0
+      },
+      {
+        name: "Policy Support",
+        desc: "Looks at whether the hub is recognised and supported within local policy and planning frameworks.",
+        question: "This hub is meaningfully recognised and supported by local policy or public institutions.",
+        score: 0
+      },
+      {
+        name: "Adaptive Capacity",
+        desc: "Looks at whether the hub can respond to shocks such as rent pressure, regulation, or funding changes.",
+        question: "This hub can adapt well when facing financial, policy, or operational pressures.",
+        score: 0
+      }
+    ]
+  }
+];
+
+const answerScale = [
+  { label: "Strongly disagree", hint: "Very little evidence", score: 0 },
+  { label: "Disagree", hint: "Some gaps are clear", score: 2.5 },
+  { label: "Mixed / unsure", hint: "Partly true", score: 5 },
+  { label: "Agree", hint: "Clear evidence", score: 7.5 },
+  { label: "Strongly agree", hint: "Very strong evidence", score: 10 }
+];
+
+const MAX_SCORE = 10;
+const N_CATS = categories.length;
+const N_KPIS = categories[0].kpis.length;
+const W = 660, H = 360;
+const CX = W / 2, CY = H;
+const INNER_R = 58, MID_R = 162, OUTER_R = 320;
+const GAP = 0.020;
+const ARC_START = Math.PI;
+const ARC_SPAN = Math.PI;
+
+const canvas = document.getElementById('wheel');
+canvas.width = W;
+canvas.height = H;
+const ctx = canvas.getContext('2d');
+
+let animV = {}, animT = {}, raf = null;
+let currentQuestionIndex = 0;
+const questions = [];
+
+categories.forEach((cat, ci) => {
+  cat.kpis.forEach((kpi, ki) => {
+    questions.push({ ci, ki, category: cat.name, color: cat.color, kpi: kpi.name, question: kpi.question, help: kpi.desc });
+  });
+});
+
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+function hex2rgb(h) { return { r: parseInt(h.slice(1,3),16), g: parseInt(h.slice(3,5),16), b: parseInt(h.slice(5,7),16) }; }
+function rgba(hex, a) { const {r,g,b}=hex2rgb(hex); return `rgba(${r},${g},${b},${a})`; }
+
+function initAnim() {
+  categories.forEach((cat, ci) => cat.kpis.forEach((kpi, ki) => {
+    const key = `${ci}_${ki}`;
+    if (animV[key] === undefined) animV[key] = 0;
+    animT[key] = kpi.score / MAX_SCORE;
+  }));
+}
+
+function triggerAnimation() {
+  initAnim();
+  if (!raf) raf = requestAnimationFrame(animLoop);
+}
+
+function animLoop() {
+  let moving = false;
+  categories.forEach((cat, ci) => cat.kpis.forEach((kpi, ki) => {
+    const key = `${ci}_${ki}`;
+    const target = animT[key] || 0;
+    const current = animV[key] || 0;
+    if (Math.abs(target - current) > 0.0015) {
+      animV[key] = current + (target - current) * 0.085;
+      moving = true;
+    } else {
+      animV[key] = target;
+    }
+  }));
+  drawWheel();
+  raf = moving ? requestAnimationFrame(animLoop) : null;
+}
+
+function drawSlice(s, e, r0, r1, fill, stroke = 'rgba(8,4,18,0.9)', lw = 1.5) {
+  ctx.beginPath();
+  ctx.arc(CX, CY, r1, s, e);
+  ctx.arc(CX, CY, r0, e, s, true);
+  ctx.closePath();
+  ctx.fillStyle = fill;
+  ctx.fill();
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = lw;
+  ctx.stroke();
+}
+
+function normalizeRotation(rot) {
+  rot = ((rot % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+  if (rot > Math.PI) rot -= Math.PI;
+  if (rot > Math.PI / 2) rot -= Math.PI;
+  if (rot < -Math.PI / 2) rot += Math.PI;
+  return rot;
+}
+
+function fitArcText(text, midAngle, r, maxW, maxH, opts = {}) {
+  const { bold = false, minSize = 7, maxSize = 12, fill = '#fff', stroke = 'rgba(10,8,18,0.9)', strokeWidth = 3 } = opts;
+  ctx.save();
+  ctx.translate(CX + Math.cos(midAngle) * r, CY + Math.sin(midAngle) * r);
+  ctx.rotate(normalizeRotation(midAngle + Math.PI / 2));
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const words = text.split(' ');
+
+  let chosenSize = minSize;
+  let chosenLines = [text];
+  for (let fs = Math.min(maxSize, maxH * 0.38); fs >= minSize; fs -= 0.35) {
+    ctx.font = `${bold ? '800' : '700'} ${fs}px Inter, Segoe UI, sans-serif`;
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+      const test = line ? `${line} ${word}` : word;
+      if (ctx.measureText(test).width <= maxW * 0.9) line = test;
+      else { if (line) lines.push(line); line = word; }
+    }
+    if (line) lines.push(line);
+    const fitsWidth = lines.every(l => ctx.measureText(l).width <= maxW * 0.95);
+    const totalH = lines.length * fs * 1.16;
+    if (fitsWidth && totalH <= maxH * 0.88 && lines.length <= 3) {
+      chosenSize = fs;
+      chosenLines = lines;
+      break;
+    }
+  }
+
+  ctx.font = `${bold ? '800' : '700'} ${chosenSize}px Inter, Segoe UI, sans-serif`;
+  ctx.lineJoin = 'round';
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = strokeWidth;
+  ctx.fillStyle = fill;
+
+  const lineH = chosenSize * 1.16;
+  const totalH = chosenLines.length * lineH;
+  chosenLines.forEach((line, i) => {
+    const y = -totalH / 2 + lineH * i + lineH / 2;
+    ctx.strokeText(line, 0, y);
+    ctx.fillText(line, 0, y);
+  });
+  ctx.restore();
+}
+
+function drawWheel() {
+  ctx.clearRect(0, 0, W, H);
+  const catSpan = ARC_SPAN / N_CATS;
+
+  categories.forEach((cat, ci) => {
+    const cs = ARC_START + ci * catSpan + GAP;
+    const ce = ARC_START + (ci + 1) * catSpan - GAP;
+    const kpiSpan = (ce - cs) / cat.kpis.length;
+
+    drawSlice(cs, ce, INNER_R, MID_R, rgba(cat.color, 0.34), 'rgba(8,4,18,0.92)', 2);
+
+    const catMid = (cs + ce) / 2;
+    const catR = (INNER_R + MID_R) / 2;
+    const catW = 2 * catR * Math.sin((ce - cs) / 2);
+    const catH = MID_R - INNER_R;
+    fitArcText(cat.name, catMid, catR, catW, catH, {
+      bold: true,
+      minSize: 8,
+      maxSize: 13,
+      fill: '#fffef7',
+      stroke: 'rgba(14,8,12,0.95)',
+      strokeWidth: 3.5
+    });
+
+    cat.kpis.forEach((kpi, ki) => {
+      const ks = cs + ki * kpiSpan + GAP * 0.34;
+      const ke = cs + (ki + 1) * kpiSpan - GAP * 0.34;
+      const km = (ks + ke) / 2;
+      const fillRatio = clamp(animV[`${ci}_${ki}`] || 0, 0, 1);
+      const filledR = MID_R + (OUTER_R - MID_R) * fillRatio;
+
+      drawSlice(ks, ke, MID_R, OUTER_R, rgba(cat.color, 0.08));
+
+      if (fillRatio > 0.01) {
+        const grad = ctx.createRadialGradient(CX, CY, MID_R, CX, CY, OUTER_R);
+        grad.addColorStop(0, rgba(cat.color, 0.5));
+        grad.addColorStop(1, rgba(cat.color, 0.95));
+        drawSlice(ks, ke, MID_R, filledR, grad);
+        ctx.save();
+        ctx.shadowColor = cat.color;
+        ctx.shadowBlur = 14;
+        drawSlice(ks, ke, filledR - 2, filledR + 1.5, cat.color, 'transparent', 0);
+        ctx.restore();
+      }
+
+      const labelR = MID_R + (OUTER_R - MID_R) * 0.53;
+      const maxW = 2 * labelR * Math.sin((ke - ks) / 2);
+      const maxH = OUTER_R - MID_R - 10;
+      fitArcText(kpi.name, km, labelR, maxW, maxH, {
+        bold: false,
+        minSize: 6.2,
+        maxSize: 10.5,
+        fill: '#ffffff',
+        stroke: fillRatio > 0.18 ? 'rgba(12,8,16,0.95)' : 'rgba(10,10,18,0.92)',
+        strokeWidth: fillRatio > 0.18 ? 3.2 : 3.6
+      });
+    });
+  });
+
+  ctx.beginPath();
+  ctx.moveTo(CX - OUTER_R - 6, CY);
+  ctx.lineTo(CX + OUTER_R + 6, CY);
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 1.4;
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(CX, CY, INNER_R - 2, Math.PI, 2 * Math.PI);
+  ctx.closePath();
+  ctx.fillStyle = '#070611';
+  ctx.fill();
+  ctx.strokeStyle = '#ffd76d';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  updateTotalScore();
+}
+
+function updateTotalScore() {
+  let total = 0, count = 0;
+  categories.forEach(cat => cat.kpis.forEach(kpi => { total += kpi.score; count += 1; }));
+  const pct = count ? Math.round((total / (count * MAX_SCORE)) * 100) : 0;
+  document.getElementById('total-score').textContent = `${pct}%`;
+}
+
+function updateCategoryScore(ci) {
+  const total = categories[ci].kpis.reduce((sum, kpi) => sum + kpi.score, 0);
+  const el = document.getElementById(`cs-${ci}`);
+  if (el) el.textContent = `${Math.round(total)}/${categories[ci].kpis.length * MAX_SCORE}`;
+  updateTotalScore();
+}
+
+function setScore(ci, ki, score, source = 'questionnaire') {
+  categories[ci].kpis[ki].score = score;
+  animT[`${ci}_${ki}`] = score / MAX_SCORE;
+  const slider = document.getElementById(`sl-${ci}-${ki}`);
+  if (slider) slider.value = score;
+  const badge = document.getElementById(`vb-${ci}-${ki}`);
+  if (badge) badge.textContent = score % 1 === 0 ? score : score.toFixed(1);
+  updateCategoryScore(ci);
+  triggerAnimation();
+  if (source === 'questionnaire') renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQuestionIndex];
+  const currentScore = categories[q.ci].kpis[q.ki].score;
+  document.getElementById('q-count').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+  document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+  document.getElementById('cat-dot').style.background = q.color;
+  document.getElementById('cat-pill').style.background = rgba(q.color, 0.22);
+  document.getElementById('cat-pill').style.color = '#fff';
+  document.getElementById('cat-pill-text').textContent = q.category;
+  document.getElementById('q-kpi').textContent = q.kpi;
+  document.getElementById('q-text').textContent = q.question;
+  document.getElementById('q-help').textContent = q.help;
+
+  const answers = document.getElementById('answers');
+  answers.innerHTML = '';
+  answerScale.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn' + (currentScore === opt.score ? ' selected' : '');
+    btn.innerHTML = `<strong>${opt.label}</strong><br><span>${opt.hint}</span>`;
+    btn.onclick = () => setScore(q.ci, q.ki, opt.score, 'questionnaire');
+    answers.appendChild(btn);
+  });
+
+  document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+  document.getElementById('next-btn').textContent = currentQuestionIndex === questions.length - 1 ? 'Finish' : 'Next';
+}
+
+function nextQuestion() {
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex += 1;
+    renderQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (currentQuestionIndex > 0) {
+    currentQuestionIndex -= 1;
+    renderQuestion();
+  }
+}
+
+document.getElementById('next-btn').addEventListener('click', nextQuestion);
+document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+
+function buildBackupPanel() {
+  const panel = document.getElementById('kpi-panel');
+  panel.innerHTML = '';
+  categories.forEach((cat, ci) => {
+    const block = document.createElement('div');
+    block.className = 'cat-block';
+
+    const header = document.createElement('div');
+    header.className = 'cat-header';
+    header.style.background = rgba(cat.color, 0.16);
+    header.style.borderLeft = `4px solid ${cat.color}`;
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.background = cat.color;
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.value = cat.name;
+    nameInput.className = 'cat-name-edit';
+    nameInput.addEventListener('input', e => {
+      cat.name = e.target.value;
+      questions.forEach(item => { if (item.ci === ci) item.category = cat.name; });
+      renderQuestion();
+      drawWheel();
+    });
+    nameInput.addEventListener('click', e => e.stopPropagation());
+
+    const scoreSpan = document.createElement('span');
+    scoreSpan.className = 'cat-score';
+    scoreSpan.id = `cs-${ci}`;
+    scoreSpan.textContent = `0/${cat.kpis.length * MAX_SCORE}`;
+
+    const icon = document.createElement('span');
+    icon.className = 'toggle-icon';
+    icon.textContent = '▼';
+
+    header.append(dot, nameInput, scoreSpan, icon);
+
+    const kpiList = document.createElement('div');
+    kpiList.className = 'kpi-list';
+
+    cat.kpis.forEach((kpi, ki) => {
+      const item = document.createElement('div');
+      item.className = 'kpi-item';
+
+      const kpiInput = document.createElement('input');
+      kpiInput.type = 'text';
+      kpiInput.value = kpi.name;
+      kpiInput.className = 'kpi-name-edit';
+      kpiInput.addEventListener('input', e => {
+        kpi.name = e.target.value;
+        const target = questions.find(q => q.ci === ci && q.ki === ki);
+        if (target) target.kpi = kpi.name;
+        renderQuestion();
+        drawWheel();
+      });
+
+      const desc = document.createElement('div');
+      desc.className = 'kpi-desc';
+      desc.textContent = kpi.desc;
+
+      const row = document.createElement('div');
+      row.className = 'slider-row';
+      row.style.setProperty('--cc', cat.color);
+
+      const slider = document.createElement('input');
+      slider.type = 'range';
+      slider.min = 0;
+      slider.max = MAX_SCORE;
+      slider.step = 0.5;
+      slider.value = kpi.score;
+      slider.id = `sl-${ci}-${ki}`;
+
+      const badge = document.createElement('span');
+      badge.className = 'vbadge';
+      badge.id = `vb-${ci}-${ki}`;
+      badge.textContent = '0';
+
+      slider.addEventListener('input', () => setScore(ci, ki, Number(slider.value), 'slider'));
+
+      row.append(slider, badge);
+      item.append(kpiInput, desc, row);
+      kpiList.appendChild(item);
+    });
+
+    header.addEventListener('click', () => {
+      const open = kpiList.classList.toggle('open');
+      icon.textContent = open ? '▲' : '▼';
+    });
+
+    block.append(header, kpiList);
+    panel.appendChild(block);
+  });
+}
+
+function resetAll() {
+  categories.forEach((cat, ci) => cat.kpis.forEach((kpi, ki) => {
+    kpi.score = 0;
+    animT[`${ci}_${ki}`] = 0;
+    const slider = document.getElementById(`sl-${ci}-${ki}`);
+    if (slider) slider.value = 0;
+    const badge = document.getElementById(`vb-${ci}-${ki}`);
+    if (badge) badge.textContent = '0';
+  }));
+  currentQuestionIndex = 0;
+  for (let ci = 0; ci < categories.length; ci++) updateCategoryScore(ci);
+  triggerAnimation();
+  renderQuestion();
+}
+
+buildBackupPanel();
+initAnim();
+drawWheel();
+renderQuestion();
+</script>
+</body>
+</html>
