@@ -160,152 +160,152 @@
 
 <script>
 const categories = [
-  { name: "Category 1", color: "#2db560", kpis: [
-    { name: " KPI 1", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+  { name: "Community and Belonging", color: "#2db560", kpis: [
+    { name: "Sense of Belonging", desc: "Whether residents and visitors feel safe, welcomed and able to be themselves within the hub.", question: "How well does the hub give people a sense of belonging and safety?", options: [
+      { label: "Not at all", hint: "There is little or no evidence that people feel safe or welcomed here.", score: 0 },
+      { label: "Occasionally", hint: "A few people feel welcomed, but this is not consistent.", score: 2.5 },
+      { label: "Somewhat", hint: "Most people feel reasonably safe and welcomed.", score: 5 },
+      { label: "Clearly", hint: "People clearly describe the hub as a place where they feel at home.", score: 7.5 },
+      { label: "Strongly", hint: "The hub is widely seen as a trusted and safe space for everyone involved.", score: 10 }
     ], score: 0 },
-    { name: " KPI 2", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Informal Encounters", desc: "Whether the layout and daily routines of the space bring residents into regular informal contact with each other.", question: "How much does the space encourage residents to bump into each other and chat?", options: [
+      { label: "Not at all", hint: "Residents rarely cross paths outside of planned meetings.", score: 0 },
+      { label: "Occasionally", hint: "Encounters happen now and then, mostly by chance.", score: 2.5 },
+      { label: "Somewhat", hint: "Shared spaces bring people together fairly regularly.", score: 5 },
+      { label: "Clearly", hint: "The layout clearly encourages daily informal contact between residents.", score: 7.5 },
+      { label: "Strongly", hint: "Informal encounters happen constantly and shape how the hub works.", score: 10 }
     ], score: 0 },
-    { name: " KPI 3", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Community Events", desc: "Whether the hub organises events, drinks or activities that bring residents and the wider community together.", question: "How often does the hub organise events that bring the community together?", options: [
+      { label: "Not at all", hint: "The hub organises no community events.", score: 0 },
+      { label: "Occasionally", hint: "Community events happen rarely, less than once a year.", score: 2.5 },
+      { label: "Somewhat", hint: "A few community events take place each year.", score: 5 },
+      { label: "Clearly", hint: "Community events happen regularly throughout the year.", score: 7.5 },
+      { label: "Strongly", hint: "Community events are a core and frequent part of hub life.", score: 10 }
     ], score: 0 },
-    { name: " KPI 4", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Volunteer Involvement", desc: "Whether the hub relies on and actively supports volunteers as part of its social mission.", question: "How much does the hub involve and support volunteers?", options: [
+      { label: "Not at all", hint: "The hub has no volunteers.", score: 0 },
+      { label: "Occasionally", hint: "A few volunteers help occasionally.", score: 2.5 },
+      { label: "Somewhat", hint: "Volunteers play a modest but regular role.", score: 5 },
+      { label: "Clearly", hint: "Volunteers are a visible and valued part of the hub.", score: 7.5 },
+      { label: "Strongly", hint: "The hub actively recruits, supports and relies on volunteers as a core practice.", score: 10 }
     ], score: 0 },
-    { name: " KPI 5", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Resident Retention", desc: "Whether residents stay involved with the hub over time rather than leaving quickly.", question: "How long do residents typically stay involved with the hub?", options: [
+      { label: "Not at all", hint: "Residents usually leave within a few months.", score: 0 },
+      { label: "Occasionally", hint: "Residents typically stay for less than a year.", score: 2.5 },
+      { label: "Somewhat", hint: "Residents commonly stay for one to two years.", score: 5 },
+      { label: "Clearly", hint: "Many residents stay for several years.", score: 7.5 },
+      { label: "Strongly", hint: "Long-term residency of many years is the norm.", score: 10 }
     ], score: 0 }
   ]},
-  { name: "Category 2", color: "#e8b800", kpis: [
-    { name: " KPI 1", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+  { name: "Artistic Experimentation", color: "#e8b800", kpis: [
+    { name: "Creative Freedom", desc: "Whether artists feel able to take creative risks without pressure to produce commercially viable work.", question: "How free do artists feel to experiment without commercial pressure?", options: [
+      { label: "Not at all", hint: "Artists report strong pressure to produce commercial work.", score: 0 },
+      { label: "Occasionally", hint: "Some freedom exists, but commercial pressure is still felt.", score: 2.5 },
+      { label: "Somewhat", hint: "Artists have a fair amount of room to experiment.", score: 5 },
+      { label: "Clearly", hint: "Artists clearly describe feeling free to take creative risks.", score: 7.5 },
+      { label: "Strongly", hint: "Experimentation is actively encouraged and central to the hub's culture.", score: 10 }
     ], score: 0 },
-    { name: " KPI 2", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Cross-Disciplinary Collaboration", desc: "Whether residents from different artistic disciplines work together or influence each other's practice.", question: "How often do artists from different disciplines work together here?", options: [
+      { label: "Not at all", hint: "Artists work in isolation from one another.", score: 0 },
+      { label: "Occasionally", hint: "Collaboration across disciplines happens rarely.", score: 2.5 },
+      { label: "Somewhat", hint: "Some cross-disciplinary collaboration takes place.", score: 5 },
+      { label: "Clearly", hint: "Cross-disciplinary collaboration happens regularly.", score: 7.5 },
+      { label: "Strongly", hint: "Cross-disciplinary collaboration is a defining feature of the hub.", score: 10 }
     ], score: 0 },
-    { name: " KPI 3", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "New Work Produced", desc: "The volume of new artistic output, such as releases, exhibitions or performances, generated by residents.", question: "How much new artistic work is produced by residents each year?", options: [
+      { label: "Not at all", hint: "Almost no new work is produced.", score: 0 },
+      { label: "Occasionally", hint: "A small number of new works are produced.", score: 2.5 },
+      { label: "Somewhat", hint: "A steady amount of new work is produced.", score: 5 },
+      { label: "Clearly", hint: "A strong volume of new work is produced.", score: 7.5 },
+      { label: "Strongly", hint: "The hub is a major source of new artistic output in its area.", score: 10 }
     ], score: 0 },
-    { name: " KPI 4", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Career Progression", desc: "Whether the hub helps artists move from early-career stages towards more advanced or larger opportunities.", question: "How well does the hub help artists progress to more advanced stages of their career?", options: [
+      { label: "Not at all", hint: "There is no visible support for career progression.", score: 0 },
+      { label: "Occasionally", hint: "Support for career progression is occasional and informal.", score: 2.5 },
+      { label: "Somewhat", hint: "Some structured support for progression exists.", score: 5 },
+      { label: "Clearly", hint: "The hub clearly helps artists move to bigger stages or opportunities.", score: 7.5 },
+      { label: "Strongly", hint: "The hub is a recognised launchpad for professional careers.", score: 10 }
     ], score: 0 },
-    { name: " KPI 5", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Knowledge Sharing", desc: "Whether residents share skills, tools or knowledge with one another informally or through organised sessions.", question: "How much do residents share skills and knowledge with each other?", options: [
+      { label: "Not at all", hint: "Residents rarely share skills or knowledge.", score: 0 },
+      { label: "Occasionally", hint: "Sharing happens occasionally between a few residents.", score: 2.5 },
+      { label: "Somewhat", hint: "Sharing of skills and knowledge is fairly common.", score: 5 },
+      { label: "Clearly", hint: "Sharing of skills and knowledge happens regularly across the hub.", score: 7.5 },
+      { label: "Strongly", hint: "Knowledge sharing is a core and constant part of hub culture.", score: 10 }
     ], score: 0 }
   ]},
-  { name: "Category 3", color: "#f07c18", kpis: [
-    { name: " KPI 1", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+  { name: "Institutional Networks", color: "#f07c18", kpis: [
+    { name: "Subsidy Access", desc: "Whether the hub can access national, provincial or municipal subsidy schemes to support its activities.", question: "How easily can the hub access subsidies or funding schemes?", options: [
+      { label: "Not at all", hint: "The hub has no access to subsidy schemes.", score: 0 },
+      { label: "Occasionally", hint: "Access to subsidies is rare and hard to obtain.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub accesses some subsidies with moderate effort.", score: 5 },
+      { label: "Clearly", hint: "The hub accesses subsidies fairly regularly.", score: 7.5 },
+      { label: "Strongly", hint: "The hub has strong and reliable access to multiple funding schemes.", score: 10 }
     ], score: 0 },
-    { name: " KPI 2", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Policy Recognition", desc: "Whether the hub is formally recognised within municipal or national cultural policy documents.", question: "How clearly is the hub recognised in local or national cultural policy?", options: [
+      { label: "Not at all", hint: "The hub is not mentioned in any policy documents.", score: 0 },
+      { label: "Occasionally", hint: "The hub is mentioned only briefly or informally.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub is named as one example among several.", score: 5 },
+      { label: "Clearly", hint: "The hub is clearly recognised as a relevant actor in policy.", score: 7.5 },
+      { label: "Strongly", hint: "The hub is explicitly named as a good-practice example in policy.", score: 10 }
     ], score: 0 },
-    { name: " KPI 3", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Partnership Network", desc: "Whether the hub is connected to other organisations, festivals or institutions within its region.", question: "How connected is the hub to other organisations and partners in its region?", options: [
+      { label: "Not at all", hint: "The hub has no notable partnerships.", score: 0 },
+      { label: "Occasionally", hint: "The hub has a few loose or occasional partnerships.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub maintains several ongoing partnerships.", score: 5 },
+      { label: "Clearly", hint: "The hub is well connected to a range of regional partners.", score: 7.5 },
+      { label: "Strongly", hint: "The hub is a central node in a wide regional network of partners.", score: 10 }
     ], score: 0 },
-    { name: " KPI 4", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Formal Status", desc: "Whether the hub holds a secure and clearly defined legal or administrative status as a creative hub.", question: "How secure is the hub's formal status as a recognised creative hub?", options: [
+      { label: "Not at all", hint: "The hub has no formal status or designation.", score: 0 },
+      { label: "Occasionally", hint: "The hub's status is informal and could be withdrawn easily.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub has a status that offers some protection.", score: 5 },
+      { label: "Clearly", hint: "The hub holds a clear and fairly secure formal status.", score: 7.5 },
+      { label: "Strongly", hint: "The hub's formal status is strongly protected and well established.", score: 10 }
     ], score: 0 },
-    { name: " KPI 5", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Policy Involvement", desc: "Whether the hub actively takes part in shaping local cultural policy or area development plans.", question: "How involved is the hub in shaping local cultural policy or area plans?", options: [
+      { label: "Not at all", hint: "The hub has no involvement in policy or area planning.", score: 0 },
+      { label: "Occasionally", hint: "The hub is consulted occasionally but has little influence.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub takes part in some policy or planning discussions.", score: 5 },
+      { label: "Clearly", hint: "The hub is regularly involved in shaping relevant policy.", score: 7.5 },
+      { label: "Strongly", hint: "The hub plays a leading role in shaping local cultural policy.", score: 10 }
     ], score: 0 }
   ]},
-  { name: "Category 4", color: "#d8293a", kpis: [
-    { name: " KPI 1", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+  { name: "Organisational Stability", color: "#d8293a", kpis: [
+    { name: "Contract Security", desc: "Whether the hub holds a lease or contract that gives it confidence about its premises over the coming years.", question: "How secure is the hub's lease or contract for its premises?", options: [
+      { label: "Not at all", hint: "The hub could lose its premises at short notice.", score: 0 },
+      { label: "Occasionally", hint: "The contract offers only short-term security.", score: 2.5 },
+      { label: "Somewhat", hint: "The contract offers a reasonable degree of security.", score: 5 },
+      { label: "Clearly", hint: "The hub holds a long-term contract that gives it confidence.", score: 7.5 },
+      { label: "Strongly", hint: "The hub's premises are secured for many years to come.", score: 10 }
     ], score: 0 },
-    { name: " KPI 2", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Funding Stability", desc: "Whether the hub relies mainly on structural funding rather than one-off or incidental grants.", question: "How much does the hub rely on stable funding rather than one-off grants?", options: [
+      { label: "Not at all", hint: "The hub relies almost entirely on incidental or one-off funding.", score: 0 },
+      { label: "Occasionally", hint: "Funding is mostly incidental, with little structural support.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub has a mix of structural and incidental funding.", score: 5 },
+      { label: "Clearly", hint: "The hub relies mainly on structural funding.", score: 7.5 },
+      { label: "Strongly", hint: "The hub's funding is highly stable and largely structural.", score: 10 }
     ], score: 0 },
-    { name: " KPI 3", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Long Term Planning", desc: "Whether the hub is able to plan its activities and programming well beyond the current year.", question: "How able is the hub to plan its activities beyond the short term?", options: [
+      { label: "Not at all", hint: "The hub can only plan a few weeks or months ahead.", score: 0 },
+      { label: "Occasionally", hint: "Planning rarely extends beyond a year.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub can plan roughly a year or two ahead.", score: 5 },
+      { label: "Clearly", hint: "The hub plans confidently several years ahead.", score: 7.5 },
+      { label: "Strongly", hint: "The hub has a clear and confident long-term plan spanning many years.", score: 10 }
     ], score: 0 },
-    { name: " KPI 4", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Staff Continuity", desc: "Whether the hub's management and staff remain stable over time, preserving institutional knowledge.", question: "How stable is the hub's staff and management team over time?", options: [
+      { label: "Not at all", hint: "Staff and management change very frequently.", score: 0 },
+      { label: "Occasionally", hint: "Staff turnover is fairly high.", score: 2.5 },
+      { label: "Somewhat", hint: "Staff turnover is moderate.", score: 5 },
+      { label: "Clearly", hint: "Staff and management are largely stable.", score: 7.5 },
+      { label: "Strongly", hint: "Staff and management have remained stable for many years.", score: 10 }
     ], score: 0 },
-    { name: " KPI 5", desc: "description", question: "Question", options: [
-      { label: "Option 1", hint: "Option 1", score: 0 },
-      { label: "Option 2", hint: "Option 2", score: 2.5 },
-      { label: "Option 3", hint: "Option 3", score: 5 },
-      { label: "Option 4", hint: "Option 4", score: 7.5 },
-      { label: "Option 5", hint: "Option 5", score: 10 }
+    { name: "Financial Resilience", desc: "Whether the hub could withstand a sudden loss of income or premises without ceasing to function.", question: "How well could the hub cope with a sudden loss of income or space?", options: [
+      { label: "Not at all", hint: "The hub would likely have to close.", score: 0 },
+      { label: "Occasionally", hint: "The hub would struggle significantly.", score: 2.5 },
+      { label: "Somewhat", hint: "The hub could manage with some difficulty.", score: 5 },
+      { label: "Clearly", hint: "The hub could adapt fairly well.", score: 7.5 },
+      { label: "Strongly", hint: "The hub has strong reserves or alternatives to cope easily.", score: 10 }
     ], score: 0 }
   ]}
 ];
